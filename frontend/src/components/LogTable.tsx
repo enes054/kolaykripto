@@ -1,5 +1,5 @@
 import { Signal } from '../store/useFeed';
-import { formatPrice, formatTimestamp, formatCommand } from '../core/format';
+import { formatPrice, formatTimestamp } from '../core/format';
 
 interface LogTableProps {
   signals: Signal[];

@@ -42,8 +42,6 @@ export default function CryptoTable({ signals, prices, symbols }: CryptoTablePro
     filtered.sort((a, b) => {
       const priceA = prices.get(a);
       const priceB = prices.get(b);
-      const signalA = getLatestSignal(a);
-      const signalB = getLatestSignal(b);
 
       let comparison = 0;
 

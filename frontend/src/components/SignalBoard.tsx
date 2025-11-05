@@ -1,5 +1,5 @@
 import { Signal } from '../store/useFeed';
-import { formatPrice, formatCommand } from '../core/format';
+import { formatCommand } from '../core/format';
 import RegimeBadge from './RegimeBadge';
 
 interface SignalBoardProps {

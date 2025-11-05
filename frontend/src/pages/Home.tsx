@@ -7,7 +7,7 @@ import { API_BASE_URL } from '../config';
 
 export default function Home() {
   const { signals, isConnected, connect } = useFeedStore();
-  const { selectedSymbols, selectedModes, setSymbols } = useSettingsStore();
+  const { setSymbols } = useSettingsStore();
   const { prices, updatePrice } = usePriceStore();
   const [allSymbols, setAllSymbols] = useState<string[]>([]);
 
