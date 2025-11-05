@@ -51,16 +51,16 @@ export async function registerRoutes(fastify: FastifyInstance) {
   fastify.get('/symbols', async () => {
     try {
       const response = await fetch('https://api.binance.com/api/v3/exchangeInfo');
-      const data = await response.json();
+      const data = await response.json() as { symbols: Array<{ symbol: string; status: string; quoteAsset: string }> };
       
       // Sadece USDT çiftlerini ve aktif olanları filtrele
       const symbols = data.symbols
-        .filter((s: any) => 
+        .filter((s) => 
           s.symbol.endsWith('USDT') && 
           s.status === 'TRADING' &&
           s.quoteAsset === 'USDT'
         )
-        .map((s: any) => s.symbol)
+        .map((s) => s.symbol)
         .sort();
       
       return { symbols };
@@ -74,16 +74,23 @@ export async function registerRoutes(fastify: FastifyInstance) {
   fastify.get('/ticker', async () => {
     try {
       const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
-      const data = await response.json();
+      const data = await response.json() as Array<{
+        symbol: string;
+        lastPrice: string;
+        priceChangePercent: string;
+        quoteVolume: string;
+        highPrice: string;
+        lowPrice: string;
+      }>;
       
       // USDT çiftlerini filtrele ve formatla
       const tickers = data
-        .filter((t: any) => 
+        .filter((t) => 
           t.symbol.endsWith('USDT') && 
           parseFloat(t.lastPrice) > 0 &&
           parseFloat(t.quoteVolume) > 1000 // Minimum hacim filtresi
         )
-        .map((t: any) => ({
+        .map((t) => ({
           symbol: t.symbol,
           price: parseFloat(t.lastPrice),
           change24h: parseFloat(t.priceChangePercent),
@@ -92,7 +99,7 @@ export async function registerRoutes(fastify: FastifyInstance) {
           low24h: parseFloat(t.lowPrice),
           timestamp: Date.now(),
         }))
-        .sort((a: any, b: any) => b.volume - a.volume); // Hacme göre sırala
+        .sort((a, b) => b.volume - a.volume); // Hacme göre sırala
       
       return { tickers };
     } catch (error) {

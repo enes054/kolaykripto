@@ -1,6 +1,7 @@
 import { BinanceFeed, KlineData, TradeData, BookTickerData, DepthData } from '../feed/binance.js';
 import { calculateOBI, TakerRatioCalculator, CVDCalculator } from '../calc/micro.js';
-import { runEnsemble, FinalSignal, EnsembleConfig } from './ensemble.js';
+import { runEnsemble, EnsembleConfig } from './ensemble.js';
+import { FinalSignal } from './ensemble.js';
 import { MarketContext } from '../strategies/types.js';
 import { EventEmitter } from 'events';
 

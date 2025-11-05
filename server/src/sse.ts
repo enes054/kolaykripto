@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { SignalEngine, FinalSignal } from './engine/signalEngine.js';
-import { EnsembleConfig } from './engine/ensemble.js';
+import { SignalEngine } from './engine/signalEngine.js';
+import { FinalSignal, EnsembleConfig } from './engine/ensemble.js';
 
 const engines = new Map<string, SignalEngine>();
 
@@ -26,6 +26,11 @@ export async function setupSSE(fastify: FastifyInstance) {
         vwap_bands: { enabled: true, weight: 1.0 },
         microstructure: { enabled: true, weight: 1.0 },
         swing_daily: { enabled: true, weight: 1.0 },
+        rsi: { enabled: true, weight: 1.0 },
+        stochastic: { enabled: true, weight: 1.0 },
+        adx: { enabled: true, weight: 1.0 },
+        volume_profile: { enabled: true, weight: 1.0 },
+        williams_r: { enabled: true, weight: 1.0 },
       };
       
       engine = new SignalEngine(symbols, modes, defaultConfig);
